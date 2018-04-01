@@ -1,0 +1,88 @@
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    .player-div {
+        display: flex;
+    }
+    ul {
+        list-style: none;
+    }
+    li {
+        /* background-color: red; */
+    }
+    li > .player-div:nth-child(2n) {
+        background-color: lightgray;
+    }
+    li > .player-div {
+        min-height: 15rem; 
+    }
+    .player-div > .playerImage {
+        max-height: 8rem;
+        max-width: 8rem;
+        min-width: 5rem;
+        min-height: 6rem;
+        border: dashed 2px black;
+        padding: 1rem;
+        border-radius: 100%;
+        animation: spin 4s infinite;
+    }
+    .player-div > * {
+        margin-top: 3rem;
+    }
+    .player-info {
+        flex: 1;
+        padding: 5rem;
+        max-height: 10rem;
+        max-width: 10rem;
+        min-width: 10rem;
+        min-height: 10rem;
+    }
+    .player-div > .stats-div {
+        flex: 4;
+    }
+/*Define the selectors for small screen widths.*/
+@media (max-width: 560px) {
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+    .player-div {
+        display: flex;
+    }
+    ul {
+        list-style: none;
+    }
+    li {
+        /* background-color: red; */
+    }
+    li > .player-div {
+        min-height: 7rem; 
+    }
+    .player-div > .playerImage {
+        max-height: 3rem;
+        max-width: 3rem;
+        min-width: 3rem;
+        min-height: 3rem;
+        border: dashed 1px black;
+        padding: 1rem;
+        border-radius: 100%;
+        animation: spin 4s infinite;
+    }
+    .player-div > * {
+        margin-top: 1rem;
+        font-size: 10px;
+    }
+    .player-info {
+        font-size: 1em;
+        flex: 1;
+        padding: 5rem;
+        max-height: 10rem;
+        max-width: 10rem;
+        min-width: 10rem;
+        min-height: 10rem;
+    }
+    .player-div > .stats-div {
+        flex: 4;
+    }
+
+    .player-div > div > .player-info > button {
+        max-width: 3rem;
+        max-height: 2rem;
+        min-height: 2rem;
+    }
+}

@@ -1,0 +1,56 @@
+
+.comments {
+    width: 80vw;
+}
+ul > #comment-form {
+ width: 100vw;
+}
+#comment-form > textarea {
+    margin-top: 2em;
+    width: 80vw;
+}
+.comments > button {
+    width: 40vw;
+    height: 3em;
+    letter-spacing: 2em;
+}
+#comment-form > input {
+    min-width: 10rem;
+    max-width: 15rem;
+    min-height: 2rem;
+    margin: 0;
+}
+.comments > ul {
+    border: 1px solid black;
+}
+.comment-area {
+    width: 80vw;
+}
+@media (max-width: 560px) {
+    ul > #comment-form {
+        width: 100vw;
+
+    }
+    #comment-form > textarea {
+        width: 80vw;
+    }
+    .comments > button {
+        width: 40vw;
+        height: 3em;
+        font-size: 0.75em;
+        letter-spacing: 0.25em;
+    }
+    #comment-form > input {
+        min-width: 7rem;
+        max-width: 10rem;
+        min-height: 1rem;
+        margin: 0;
+    }
+    .comments > ul {
+        border: 1px solid black;
+    }
+    .comment-area {
+        width: 80vw;
+    }
+}
+
