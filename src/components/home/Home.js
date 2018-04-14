@@ -28,6 +28,8 @@ class Home extends Component {
       myList: [],
       doEdit: false,
       comments: [],
+      user: null,
+      loggedIn: false,
     }
     //Make sure to bind the componentDidMount method, so it can bind the component.
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -52,7 +54,11 @@ class Home extends Component {
         return {
           currImg: res.data,
         };
+      });
+      axios.get('/api/user-data').then(res => {
+        this.setState({user: res.data.name, loggedIn: true});
       })
+      if(this.state.user) this.setState({loggedIn: true});
     })
     axios.get('/api/home').then(res => {
       //Use this.setState inside promise
@@ -200,8 +206,25 @@ class Home extends Component {
         })
       console.log(this.state.cs);
   }
+  login() {
+    const callbackURI = encodeURIComponent(window.location.origin + '/auth/callback');
+    this.setState({loggedIn: true});
+
+    window.location = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/login?client=${process.env.REACT_APP_CLIENT_ID}&scope=openid%20profile%20email&redirect_uri=${callbackURI}`;
+  }
+  logout() {
+    axios.post('/api/logout').then(res => {
+      
+      this.setState({user: null});
+    })
+    this.setState({loggedIn: false});
+  }
   //Add to list function
   render() {
+    const { user, loggedIn } = this.state;
+    console.log('------------------user', user);
+    console.log('-------------loggedIn', loggedIn);
+    const output = (user ? `Welcome ${user}!!!!` : null);
     return (
       <div>
         <Header title='NBA APP' favList={this.state.myList} chg={this.optSch} />
@@ -211,6 +234,9 @@ class Home extends Component {
           <img className='main-image' src={this.state.currImg}
         alt='Lebron James Gif'/>
         </div>
+        <button style={{'display': !this.state.loggedIn ? 'inline-block' : 'none'}} onClick={() => this.login()}>Login</button>
+        <button style={{'display': this.state.loggedIn ? 'inline-block' : 'none'}} onClick={() => this.logout()}>Logout</button>
+        <h4>{output}</h4>
         <Players storage={this.state.myList} list={this.state.plays} add={this.addToList} delete={this.delFrmList}/>
         <Slideshow imgs={this.state.imgs}/>    
         <br/>    

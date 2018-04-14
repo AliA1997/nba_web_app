@@ -1,3 +1,4 @@
+const axios = require('axios');
 let playerController = require('./players_controller');
 let id = 0;
 let playerId = 0;
@@ -21,6 +22,37 @@ copyOfPlayers.filter((cp, i, a) => a[i] !== a[i + 1] || a[i + 1 !== a[i + 2]])
 
 copyOfPlayers.filter(cp => cp !== undefined)
 module.exports = {
+    login: (req, res) => {
+        axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token/`, {
+            client_id: process.env.REACT_APP_CLIENT_ID,
+            client_secret: process.env.REACT_APP_CLIENT_SECRET,
+            code: req.query.code,
+            grant_type: 'authorization_code',
+            redirect_uri: `http://${req.headers.host}/auth/callback`,
+        }).then(accessTokenRes => {
+            //Use the https protocol in the get request inside in post request. 
+            //access_token is a query parameter.
+            return axios.get(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/userInfo?access_token=${accessTokenRes.data.access_token}`).then(userInfoRes => {
+                const userData = userInfoRes.data;
+                console.log('---------------------userData', userData);
+                req.session.user = userData;
+                console.log(req.session.user);
+                res.redirect('/');
+            }).catch(err => {
+                res.json({message: 'Something gone wrong!'});
+            })
+        }).catch(err => {
+            console.log('------------------error', err);
+            res.json({message: 'Something has gone wrong!!!!!'});
+        });
+    },
+    logout: (req, res) => {
+        req.session.destroy();
+        res.send(req.session.user);
+    },
+    getSessionData: (req, res) => {
+        res.send(req.session.user);
+    },
     //Get random image
     getRandomImage: (req, res) => {
         let randomNumber = Math.floor(Math.random() * randomImages.length);
