@@ -1,7 +1,6 @@
 const axios = require('axios');
 let playerController = require('./players_controller');
 let id = 0;
-let playerId = 0;
 let comments = [];
 let favList = [];
 let randomImages = [
@@ -22,6 +21,9 @@ copyOfPlayers.filter((cp, i, a) => a[i] !== a[i + 1] || a[i + 1 !== a[i + 2]])
 
 copyOfPlayers.filter(cp => cp !== undefined)
 module.exports = {
+    //DO NOT LOOK AT THIS! THIS IS AUTHENTICATION <---- WEEK 5 Stuff
+    //////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////
     login: (req, res) => {
         axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token/`, {
             client_id: process.env.REACT_APP_CLIENT_ID,
@@ -53,6 +55,9 @@ module.exports = {
     getSessionData: (req, res) => {
         res.send(req.session.user);
     },
+    //////////////////////////////////////
+    ////////////////////////////////////
+    ////////////////////////////////////
     //Get random image
     getRandomImage: (req, res) => {
         let randomNumber = Math.floor(Math.random() * randomImages.length);

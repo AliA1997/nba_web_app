@@ -3,17 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "main": "server/server.js",
-  "proxy": {
-    "/auth/callback": {
-      "target": "http://localhost:5000"
-    },
-    "/api": {
-      "target": "http://localhost:5000"
-    }
-  },
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.2",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
@@ -28,6 +20,22 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "now-start": "node server/server.js",
+    "deploy": "now --public --dotenv=.env.prod -d"
+  },
+  "now": {
+    "alias": "nodb-nba-players"
+  },
+  "devDependencies": {
+    "cypress": "^3.0.2"
+  },
+  "proxy": {
+    "/auth/callback": {
+      "target": "http://localhost:5000"
+    },
+    "/api": {
+      "target": "http://localhost:5000"
+    }
   }
 }
